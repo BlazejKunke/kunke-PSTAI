@@ -4,13 +4,13 @@ export interface Props {
   description?: string;
 }
 
-const { title, description = "Polish Association of AI Trainers - Raising the bar for AI training in Poland through standards, community, and credibility." } = Astro.props;
+const { title, description = "Polskie Stowarzyszenie Trenerów Sztucznej Inteligencji - Podnosimy standardy szkolenia AI w Polsce poprzez standardy, społeczność i wiarygodność." } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="pl" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -33,7 +33,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL('/og-image.jpg', Astro.url)} />
     <meta property="og:site_name" content="PSTAI" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content="pl_PL" />
     
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={canonicalURL} />
