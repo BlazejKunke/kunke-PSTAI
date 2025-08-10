@@ -1,0 +1,116 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Polish Association of AI Trainers - Raising the bar for AI training in Poland through standards, community, and credibility." } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- SEO and Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL('/og-image.jpg', Astro.url)} />
+    <meta property="og:site_name" content="PSTAI" />
+    <meta property="og:locale" content="en_US" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL('/og-image.jpg', Astro.url)} />
+    
+    <!-- Theme color -->
+    <meta name="theme-color" content="#146A5C" />
+    
+    <title>{title}</title>
+    
+    <style>
+      /* Focus styles for accessibility */
+      :focus-visible {
+        outline: 2px solid #146A5C;
+        outline-offset: 2px;
+      }
+      
+      /* Smooth scrolling with reduced motion support */
+      @media (prefers-reduced-motion: no-preference) {
+        html {
+          scroll-behavior: smooth;
+        }
+      }
+      
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: #146A5C;
+        border-radius: 4px;
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: #0f5248;
+      }
+    </style>
+  </head>
+  <body class="font-sans text-text antialiased">
+    <slot />
+    
+    <!-- Skip link for keyboard navigation -->
+    <div id="main" class="sr-only focus:not-sr-only">Main content starts here</div>
+    
+    <script>
+      // Enhanced smooth scrolling for anchor links
+      document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('a[href^="#"]');
+        
+        links.forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href')?.substring(1);
+            const targetElement = targetId ? document.getElementById(targetId) : null;
+            
+            if (targetElement) {
+              // Check for reduced motion preference
+              const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+              
+              targetElement.scrollIntoView({
+                behavior: prefersReducedMotion ? 'auto' : 'smooth',
+                block: 'start'
+              });
+              
+              // Update focus for accessibility
+              targetElement.focus({ preventScroll: true });
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

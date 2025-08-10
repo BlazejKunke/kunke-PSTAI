@@ -1,0 +1,64 @@
+---
+---
+
+<header class="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-gray-100 z-50">
+  <div class="container mx-auto px-4 py-4">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-white px-3 py-2 rounded-md text-sm font-medium">
+      Skip to main content
+    </a>
+    
+    <nav class="flex items-center justify-between" aria-label="Main navigation">
+      <div class="flex items-center space-x-2">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="20" cy="20" r="18" fill="#146A5C"/>
+          <path d="M12 20h16M20 12v16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="text-xl font-bold text-text">PSTAI</span>
+      </div>
+      
+      <ul class="hidden md:flex items-center space-x-8">
+        <li><a href="#about" class="text-text hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm">About</a></li>
+        <li><a href="#benefits" class="text-text hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm">Benefits</a></li>
+        <li><a href="#join" class="text-text hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm">Join</a></li>
+        <li><a href="#contact" class="text-text hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm">Contact</a></li>
+      </ul>
+      
+      <button 
+        class="md:hidden p-2 text-text hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm"
+        aria-label="Toggle navigation menu"
+        id="mobile-menu-button"
+      >
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </nav>
+    
+    <div class="hidden md:hidden mt-4" id="mobile-menu">
+      <ul class="flex flex-col space-y-2">
+        <li><a href="#about" class="block py-2 text-text hover:text-primary transition-colors">About</a></li>
+        <li><a href="#benefits" class="block py-2 text-text hover:text-primary transition-colors">Benefits</a></li>
+        <li><a href="#join" class="block py-2 text-text hover:text-primary transition-colors">Join</a></li>
+        <li><a href="#contact" class="block py-2 text-text hover:text-primary transition-colors">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const button = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    
+    button?.addEventListener('click', () => {
+      const isHidden = menu?.classList.contains('hidden');
+      if (isHidden) {
+        menu?.classList.remove('hidden');
+        button.setAttribute('aria-expanded', 'true');
+      } else {
+        menu?.classList.add('hidden');
+        button.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+</script>

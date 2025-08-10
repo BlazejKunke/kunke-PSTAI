@@ -1,0 +1,225 @@
+---
+---
+
+<section id="contact" class="py-20 lg:py-24 bg-mint/20">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl lg:text-4xl font-bold text-text mb-8 text-center">Contact Us</h2>
+      
+      <div class="text-center mb-12">
+        <p class="text-lg text-gray-700 mb-4">Get in touch with any questions or suggestions.</p>
+        <a 
+          href="mailto:hello@pstai.org" 
+          class="text-xl text-primary hover:text-primary/80 font-medium focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm"
+        >
+          hello@pstai.org
+        </a>
+      </div>
+      
+      <div class="max-w-2xl mx-auto">
+        <form 
+          id="contact-form" 
+          class="space-y-6"
+          novalidate
+        >
+          <div style="position: absolute; left: -5000px;">
+            <input type="text" name="honeypot" tabindex="-1" autocomplete="off">
+          </div>
+          
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label for="contact-name" class="block text-sm font-medium text-text mb-2">
+                Name *
+              </label>
+              <input 
+                type="text" 
+                id="contact-name" 
+                name="name" 
+                required 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                aria-describedby="contact-name-error"
+              >
+              <div id="contact-name-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></div>
+            </div>
+            
+            <div>
+              <label for="contact-email" class="block text-sm font-medium text-text mb-2">
+                Email *
+              </label>
+              <input 
+                type="email" 
+                id="contact-email" 
+                name="email" 
+                required 
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                aria-describedby="contact-email-error"
+              >
+              <div id="contact-email-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></div>
+            </div>
+          </div>
+          
+          <div>
+            <label for="contact-organization" class="block text-sm font-medium text-text mb-2">
+              Organization (optional)
+            </label>
+            <input 
+              type="text" 
+              id="contact-organization" 
+              name="organization" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+            >
+          </div>
+          
+          <div>
+            <label for="contact-message" class="block text-sm font-medium text-text mb-2">
+              Message *
+            </label>
+            <textarea 
+              id="contact-message" 
+              name="message" 
+              rows="5" 
+              required 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+              aria-describedby="contact-message-error"
+            ></textarea>
+            <div id="contact-message-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></div>
+          </div>
+          
+          <div>
+            <label class="flex items-start space-x-3">
+              <input 
+                type="checkbox" 
+                id="contact-consent" 
+                name="consent" 
+                required 
+                class="mt-1 h-4 w-4 text-primary border-gray-300 rounded focus:ring-2 focus:ring-primary"
+                aria-describedby="contact-consent-error"
+              >
+              <span class="text-sm text-gray-700">
+                I agree to be contacted by PSTAI regarding my inquiry. *
+              </span>
+            </label>
+            <div id="contact-consent-error" class="text-red-600 text-sm mt-1 hidden" role="alert"></div>
+          </div>
+          
+          <button 
+            type="submit" 
+            class="w-full bg-primary text-white py-4 px-6 rounded-lg font-semibold text-lg hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span id="contact-submit-text">Send Message</span>
+            <span id="contact-loading" class="hidden">Sending...</span>
+          </button>
+          
+          <div id="contact-status" class="text-center text-sm hidden" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const submitBtn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const submitText = document.getElementById('contact-submit-text') as HTMLElement;
+    const loading = document.getElementById('contact-loading') as HTMLElement;
+    const status = document.getElementById('contact-status') as HTMLElement;
+    
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      clearErrors();
+      
+      if (!validateForm()) {
+        return;
+      }
+      
+      const formData = new FormData(form);
+      
+      if (formData.get('honeypot')) {
+        return;
+      }
+      
+      submitBtn.disabled = true;
+      submitText.classList.add('hidden');
+      loading.classList.remove('hidden');
+      status.classList.add('hidden');
+      
+      try {
+        const response = await fetch(import.meta.env.FORM_ACTION_CONTACT || '/api/contact', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (response.ok) {
+          status.textContent = 'Thank you for your message! We\'ll get back to you soon.';
+          status.className = 'text-center text-sm text-green-600 bg-green-50 p-4 rounded-lg';
+          status.classList.remove('hidden');
+          form.reset();
+        } else {
+          throw new Error('Submission failed');
+        }
+      } catch (error) {
+        status.textContent = 'Something went wrong. Please try again or email us directly at hello@pstai.org.';
+        status.className = 'text-center text-sm text-red-600 bg-red-50 p-4 rounded-lg';
+        status.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        submitText.classList.remove('hidden');
+        loading.classList.add('hidden');
+      }
+    });
+    
+    function validateForm(): boolean {
+      let isValid = true;
+      
+      const name = form.querySelector('#contact-name') as HTMLInputElement;
+      const email = form.querySelector('#contact-email') as HTMLInputElement;
+      const message = form.querySelector('#contact-message') as HTMLTextAreaElement;
+      const consent = form.querySelector('#contact-consent') as HTMLInputElement;
+      
+      if (!name.value.trim()) {
+        showError('contact-name-error', 'Name is required');
+        isValid = false;
+      }
+      
+      if (!email.value.trim()) {
+        showError('contact-email-error', 'Email is required');
+        isValid = false;
+      } else if (!isValidEmail(email.value)) {
+        showError('contact-email-error', 'Please enter a valid email address');
+        isValid = false;
+      }
+      
+      if (!message.value.trim()) {
+        showError('contact-message-error', 'Message is required');
+        isValid = false;
+      }
+      
+      if (!consent.checked) {
+        showError('contact-consent-error', 'You must agree to be contacted');
+        isValid = false;
+      }
+      
+      return isValid;
+    }
+    
+    function showError(errorId: string, message: string): void {
+      const errorEl = document.getElementById(errorId) as HTMLElement;
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    }
+    
+    function clearErrors(): void {
+      const errors = form.querySelectorAll('[id$="-error"]');
+      errors.forEach(error => {
+        error.classList.add('hidden');
+        error.textContent = '';
+      });
+    }
+    
+    function isValidEmail(email: string): boolean {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+  });
+</script>

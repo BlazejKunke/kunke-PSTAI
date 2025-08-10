@@ -1,0 +1,8 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#EEF8F4"/>
+  <circle cx="200" cy="315" r="60" fill="#146A5C"/>
+  <path d="M170 315h60M200 285v60" stroke="white" stroke-width="4" stroke-linecap="round"/>
+  <text x="320" y="300" font-family="system-ui, sans-serif" font-size="72" font-weight="bold" fill="#0E0F10">PSTAI</text>
+  <text x="320" y="360" font-family="system-ui, sans-serif" font-size="32" fill="#146A5C">Polish Association of AI Trainers</text>
+  <text x="320" y="420" font-family="system-ui, sans-serif" font-size="28" fill="#666">Raising the bar for AI training in Poland</text>
+</svg>
