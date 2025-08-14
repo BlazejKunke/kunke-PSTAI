@@ -1,19 +1,30 @@
 ---
 export interface Props {
-  title: string;
-  description?: string;
+  lang: 'en' | 'pl';
 }
 
-const { title, description = "Polskie Stowarzyszenie Trenerów Sztucznej Inteligencji - Podnosimy standardy szkolenia AI w Polsce poprzez standardy, społeczność i wiarygodność." } = Astro.props;
+const { lang } = Astro.props;
 
+const content = {
+  pl: {
+    title: "PSTAI - Polskie Stowarzyszenie Trenerów AI",
+    description: "Polskie Stowarzyszenie Trenerów Sztucznej Inteligencji - Podnosimy standardy szkolenia AI w Polsce poprzez standardy, społeczność i wiarygodność. Dołącz do naszej profesjonalnej sieci edukatorów i trenerów AI."
+  },
+  en: {
+    title: "PSTAI - Polish Association of AI Trainers",
+    description: "The Polish Association of Artificial Intelligence Trainers - We raise the standards of AI training in Poland through standards, community, and credibility. Join our professional network of AI educators and trainers."
+  }
+};
+
+const t = content[lang];
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!DOCTYPE html>
-<html lang="pl" class="scroll-smooth">
+<html lang={lang} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
+    <meta name="description" content={t.description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
@@ -29,22 +40,22 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- SEO and Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL('/og-image.jpg', Astro.url)} />
+    <meta property="og:title" content={t.title} />
+    <meta property="og:description" content={t.description} />
+    <meta property="og:image" content={new URL(lang === 'pl' ? '/og-image-pl.svg' : '/og-image-en.svg', Astro.url)} />
     <meta property="og:site_name" content="PSTAI" />
-    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:locale" content={lang === 'pl' ? 'pl_PL' : 'en_US'} />
     
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={canonicalURL} />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL('/og-image.jpg', Astro.url)} />
+    <meta name="twitter:title" content={t.title} />
+    <meta name="twitter:description" content={t.description} />
+    <meta name="twitter:image" content={new URL(lang === 'pl' ? '/og-image-pl.svg' : '/og-image-en.svg', Astro.url)} />
     
     <!-- Theme color -->
     <meta name="theme-color" content="#146A5C" />
     
-    <title>{title}</title>
+    <title>{t.title}</title>
     
     <style>
       /* Focus styles for accessibility */

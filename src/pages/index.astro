@@ -1,25 +1,4 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
-import Benefits from '../components/Benefits.astro';
-import Join from '../components/Join.astro';
-import Contact from '../components/Contact.astro';
-import Footer from '../components/Footer.astro';
+// Redirect to the default language (Polish)
+return Astro.redirect('/pl/');
 ---
-
-<Layout 
-  title="PSTAI - Polskie Stowarzyszenie Trenerów AI"
-  description="Polskie Stowarzyszenie Trenerów Sztucznej Inteligencji - Podnosimy standardy szkolenia AI w Polsce poprzez standardy, społeczność i wiarygodność. Dołącz do naszej profesjonalnej sieci edukatorów i trenerów AI."
->
-  <Header />
-  <main>
-    <Hero />
-    <About />
-    <Benefits />
-    <Join />
-    <Contact />
-  </main>
-  <Footer />
-</Layout>

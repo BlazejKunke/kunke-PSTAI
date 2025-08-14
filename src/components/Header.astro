@@ -1,45 +1,96 @@
 ---
----
+export interface Props {
+  lang: 'en' | 'pl';
+}
+const { lang } = Astro.props;
 
+const content = {
+  pl: {
+    skip: 'Przejdź do głównej treści',
+    nav_aria: 'Główna nawigacja',
+    menu_aria: 'Przełącz menu nawigacji',
+    links: [
+      { href: '#about', text: 'O nas' },
+      { href: '#team', text: 'Zespół' },
+      { href: '#benefits', text: 'Korzyści' },
+      { href: '#events', text: 'Wydarzenia' },
+      { href: '#blog', text: 'Blog' },
+      { href: '#join', text: 'Dołącz' },
+      { href: '#contact', text: 'Kontakt' },
+    ],
+    toggle_lang: 'EN',
+    toggle_url: '/en/',
+  },
+  en: {
+    skip: 'Skip to main content',
+    nav_aria: 'Main navigation',
+    menu_aria: 'Toggle navigation menu',
+    links: [
+      { href: '#about', text: 'About Us' },
+      { href: '#team', text: 'Team' },
+      { href: '#benefits', text: 'Benefits' },
+      { href: '#events', text: 'Events' },
+      { href: '#blog', text: 'Blog' },
+      { href: '#join', text: 'Join Us' },
+      { href: '#contact', text: 'Contact' },
+    ],
+    toggle_lang: 'PL',
+    toggle_url: '/pl/',
+  }
+};
+
+const t = content[lang];
+---
 <header class="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-gray-100 z-50">
   <div class="container mx-auto px-4 py-4">
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-white px-3 py-2 rounded-md text-sm font-medium">
-      Przejdź do głównej treści
+      {t.skip}
     </a>
     
-    <nav class="flex items-center justify-between" aria-label="Główna nawigacja">
+    <nav class="flex items-center justify-between" aria-label={t.nav_aria}>
       <div class="flex items-center space-x-2">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="20" cy="20" r="18" fill="#146A5C"/>
-          <path d="M12 20h16M20 12v16" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <span class="text-xl font-bold text-text">PSTAI</span>
+        <a href={lang === 'pl' ? '/pl/' : '/en/'} class="flex items-center space-x-2">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="20" cy="20" r="18" fill="#146A5C"/>
+              <path d="M12 20h16M20 12v16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="text-xl font-bold text-text">PSTAI</span>
+        </a>
       </div>
       
-      <ul class="hidden md:flex items-center space-x-8">
-        <li><a href="#about" class="text-text hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm">O nas</a></li>
-        <li><a href="#benefits" class="text-text hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm">Korzyści</a></li>
-        <li><a href="#join" class="text-text hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm">Dołącz</a></li>
-        <li><a href="#contact" class="text-text hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm">Kontakt</a></li>
-      </ul>
+      <div class="flex items-center">
+        <ul class="hidden md:flex items-center space-x-8">
+          {t.links.map(link => (
+            <li><a href={link.href} class="text-text hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm">{link.text}</a></li>
+          ))}
+        </ul>
+
+        <a href={t.toggle_url} class="hidden md:inline-block ml-8 px-4 py-2 border-2 border-primary text-primary rounded-md font-semibold hover:bg-primary hover:text-white transition-colors">
+            {t.toggle_lang}
+        </a>
       
-      <button 
-        class="md:hidden p-2 text-text hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm"
-        aria-label="Przełącz menu nawigacji"
-        id="mobile-menu-button"
-      >
-        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
+        <button
+          class="md:hidden p-2 ml-4 text-text hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm"
+          aria-label={t.menu_aria}
+          id="mobile-menu-button"
+        >
+          <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
     </nav>
     
     <div class="hidden md:hidden mt-4" id="mobile-menu">
       <ul class="flex flex-col space-y-2">
-        <li><a href="#about" class="block py-2 text-text hover:text-primary transition-colors">O nas</a></li>
-        <li><a href="#benefits" class="block py-2 text-text hover:text-primary transition-colors">Korzyści</a></li>
-        <li><a href="#join" class="block py-2 text-text hover:text-primary transition-colors">Dołącz</a></li>
-        <li><a href="#contact" class="block py-2 text-text hover:text-primary transition-colors">Kontakt</a></li>
+        {t.links.map(link => (
+          <li><a href={link.href} class="block py-2 text-text hover:text-primary transition-colors">{link.text}</a></li>
+        ))}
+        <li>
+            <a href={t.toggle_url} class="block mt-2 py-2 text-center border-2 border-primary text-primary rounded-md font-semibold hover:bg-primary hover:text-white transition-colors">
+                {t.toggle_lang}
+            </a>
+        </li>
       </ul>
     </div>
   </div>
