@@ -1,0 +1,106 @@
+---
+export interface Props {
+  lang: 'en' | 'pl';
+}
+const { lang } = Astro.props;
+
+const content = {
+  pl: {
+    title: 'Nadchodzące Wydarzenia',
+    description: 'Bądź na bieżąco z naszymi webinarami, warsztatami i spotkaniami.',
+    more_info_button: 'Dowiedz się więcej',
+    events: [
+      {
+        title: 'Webinar: Etyka w Sztucznej Inteligencji',
+        date: '25 października 2025',
+        description: 'Dołącz do naszej dyskusji na temat najważniejszych wyzwań etycznych w dziedzinie AI. Prelegentami będą czołowi eksperci z Polski.',
+        link: '#',
+        type: 'Webinar',
+      },
+      {
+        title: 'Warsztaty: Praktyczne Zastosowania Modeli Językowych',
+        date: '15 listopada 2025',
+        description: 'Praktyczne warsztaty, na których nauczysz się, jak efektywnie wykorzystywać duże modele językowe w biznesie i edukacji.',
+        link: '#',
+        type: 'Warsztaty',
+      },
+      {
+        title: 'Spotkanie Networkingowe Członków PSTAI',
+        date: '5 grudnia 2025',
+        description: 'Zapraszamy na nieformalne spotkanie członków stowarzyszenia. Doskonała okazja do nawiązania nowych kontaktów.',
+        link: '#',
+        type: 'Spotkanie',
+      },
+    ]
+  },
+  en: {
+    title: 'Upcoming Events',
+    description: 'Stay up to date with our webinars, workshops, and meetups.',
+    more_info_button: 'Learn More',
+    events: [
+      {
+        title: 'Webinar: Ethics in Artificial Intelligence',
+        date: 'October 25, 2025',
+        description: 'Join our discussion on the most important ethical challenges in the field of AI. The speakers will be leading experts from Poland.',
+        link: '#',
+        type: 'Webinar',
+      },
+      {
+        title: 'Workshop: Practical Applications of Language Models',
+        date: 'November 15, 2025',
+        description: 'A hands-on workshop where you will learn how to effectively use large language models in business and education.',
+        link: '#',
+        type: 'Workshop',
+      },
+      {
+        title: 'PSTAI Member Networking Meeting',
+        date: 'December 5, 2025',
+        description: 'We invite you to an informal meeting of the association members. An excellent opportunity to make new contacts.',
+        link: '#',
+        type: 'Meeting',
+      },
+    ]
+  }
+};
+
+const t = content[lang];
+---
+
+<section id="events" class="py-20 lg:py-24 bg-mint/20">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl lg:text-4xl font-bold text-text mb-6">{t.title}</h2>
+      <p class="text-lg lg:text-xl text-gray-700 mb-12 leading-relaxed">
+        {t.description}
+      </p>
+    </div>
+    <div class="max-w-4xl mx-auto">
+      <div class="space-y-8">
+        {t.events.map(event => (
+          <div class="bg-white rounded-xl shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-lg">
+            <div class="p-6 md:p-8">
+              <div class="flex justify-between items-start">
+                <div>
+                  <div class="inline-block bg-primary/10 text-primary text-sm font-semibold px-3 py-1 rounded-full mb-2">{event.type}</div>
+                  <h3 class="text-2xl font-bold text-text mb-2">{event.title}</h3>
+                  <p class="text-gray-500 font-medium mb-4">{event.date}</p>
+                  <p class="text-gray-700 mb-6">{event.description}</p>
+                </div>
+                <div class="hidden md:block ml-6 flex-shrink-0">
+                  <a href={event.link} class="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+                    {t.more_info_button}
+                  </a>
+                </div>
+              </div>
+               <div class="md:hidden mt-4">
+                  <a href={event.link} class="block text-center w-full bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+                    {t.more_info_button}
+                  </a>
+                </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

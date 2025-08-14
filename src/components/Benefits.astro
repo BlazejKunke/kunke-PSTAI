@@ -1,10 +1,63 @@
 ---
+export interface Props {
+  lang: 'en' | 'pl';
+}
+const { lang } = Astro.props;
+
+const content = {
+  pl: {
+    title: 'Korzyści',
+    for_trainers_title: 'Dla Trenerów',
+    for_trainers_subtitle: 'Podnieś poziom swojej praktyki szkolenia AI poprzez rozwój zawodowy i wsparcie społeczności.',
+    for_trainers_benefits: [
+      { title: 'Sieć kontaktów:', text: 'Nawiązuj kontakty z kolegami po fachu i dziel się najlepszymi praktykami' },
+      { title: 'Materiały szkoleniowe:', text: 'Dostęp do wyselekcjonowanych materiałów i struktur szkoleń' },
+      { title: 'Wiarygodność:', text: 'Buduj zaufanie dzięki certyfikacji i profesjonalnemu uznaniu' },
+    ],
+    for_orgs_title: 'Dla Organizacji',
+    for_orgs_subtitle: 'Znajdź wykwalifikowanych trenerów AI i zapewnij wysokiej jakości programy szkoleniowe dla swojego zespołu.',
+    for_orgs_benefits: [
+      { title: 'Jasne oczekiwania:', text: 'Wiedz, czego oczekiwać od certyfikowanych trenerów' },
+      { title: 'Listy kontrolne dobrych praktyk:', text: 'Oceniaj jakość szkoleń obiektywnie' },
+      { title: 'Dostęp do kompetentnych trenerów:', text: 'Nawiązuj kontakt ze sprawdzonymi profesjonalistami' },
+    ],
+    testimonials_title: 'Co mówią nasi członkowie',
+    testimonials: [
+      { quote: '"PSTAI to fantastyczne miejsce do wymiany doświadczeń. Dostęp do materiałów i sieci kontaktów jest nieoceniony w mojej pracy jako trenera AI."', author: '- Katarzyna Dąbrowska', role: 'Niezależny Trener AI' },
+      { quote: '"Dzięki standardom PSTAI, nasza organizacja może być pewna jakości szkoleń, w które inwestujemy. To duża wartość dla całego rynku."', author: '- Adam Zieliński', role: 'Dyrektor HR w TechCorp' },
+    ]
+  },
+  en: {
+    title: 'Benefits',
+    for_trainers_title: 'For Trainers',
+    for_trainers_subtitle: 'Elevate your AI training practice through professional development and community support.',
+    for_trainers_benefits: [
+      { title: 'Networking:', text: 'Connect with peers and share best practices' },
+      { title: 'Training Materials:', text: 'Access to curated materials and training frameworks' },
+      { title: 'Credibility:', text: 'Build trust with certification and professional recognition' },
+    ],
+    for_orgs_title: 'For Organizations',
+    for_orgs_subtitle: 'Find qualified AI trainers and ensure high-quality training programs for your team.',
+    for_orgs_benefits: [
+      { title: 'Clear Expectations:', text: 'Know what to expect from certified trainers' },
+      { title: 'Best Practice Checklists:', text: 'Evaluate training quality objectively' },
+      { title: 'Access to Competent Trainers:', text: 'Connect with vetted professionals' },
+    ],
+    testimonials_title: 'What Our Members Say',
+    testimonials: [
+      { quote: '"PSTAI is a fantastic place for exchanging experiences. The access to materials and the network of contacts is invaluable in my work as an AI trainer."', author: '- Katarzyna Dąbrowska', role: 'Independent AI Trainer' },
+      { quote: '"Thanks to PSTAI\'s standards, our organization can be confident in the quality of the training we invest in. This is a great value for the entire market."', author: '- Adam Zieliński', role: 'HR Director at TechCorp' },
+    ]
+  }
+};
+
+const t = content[lang];
 ---
 
 <section id="benefits" class="py-20 lg:py-24 bg-mint/20">
   <div class="container mx-auto px-4">
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-3xl lg:text-4xl font-bold text-text mb-12 text-center">Korzyści</h2>
+      <h2 class="text-3xl lg:text-4xl font-bold text-text mb-12 text-center">{t.title}</h2>
       
       <div class="grid lg:grid-cols-2 gap-8 lg:gap-12">
         <div class="bg-white rounded-2xl p-8 lg:p-10 shadow-sm border border-gray-100">
@@ -13,28 +66,18 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m3 5.197v-1a6 6 0 013 5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-text mb-4">Dla Trenerów</h3>
-          <p class="text-gray-700 mb-6">Podnieś poziom swojej praktyki szkolenia AI poprzez rozwój zawodowy i wsparcie społeczności.</p>
+          <h3 class="text-2xl font-bold text-text mb-4">{t.for_trainers_title}</h3>
+          <p class="text-gray-700 mb-6">{t.for_trainers_subtitle}</p>
           
           <ul class="space-y-3">
-            <li class="flex items-start space-x-3">
-              <svg width="20" height="20" fill="none" stroke="#146A5C" viewBox="0 0 24 24" stroke-width="2" class="mt-0.5 flex-shrink-0">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-              </svg>
-              <span class="text-gray-700"><strong>Sieć kontaktów:</strong> Nawiązuj kontakty z kolegami po fachu i dziel się najlepszymi praktykami</span>
-            </li>
-            <li class="flex items-start space-x-3">
-              <svg width="20" height="20" fill="none" stroke="#146A5C" viewBox="0 0 24 24" stroke-width="2" class="mt-0.5 flex-shrink-0">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-              </svg>
-              <span class="text-gray-700"><strong>Materiały szkoleniowe:</strong> Dostęp do wyselekcjonowanych materiałów i struktur szkoleń</span>
-            </li>
-            <li class="flex items-start space-x-3">
-              <svg width="20" height="20" fill="none" stroke="#146A5C" viewBox="0 0 24 24" stroke-width="2" class="mt-0.5 flex-shrink-0">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-              </svg>
-              <span class="text-gray-700"><strong>Wiarygodność:</strong> Buduj zaufanie dzięki certyfikacji i profesjonalnemu uznaniu</span>
-            </li>
+            {t.for_trainers_benefits.map(benefit => (
+              <li class="flex items-start space-x-3">
+                <svg width="20" height="20" fill="none" stroke="#146A5C" viewBox="0 0 24 24" stroke-width="2" class="mt-0.5 flex-shrink-0">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span class="text-gray-700"><strong>{benefit.title}</strong> {benefit.text}</span>
+              </li>
+            ))}
           </ul>
         </div>
         
@@ -44,29 +87,32 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
             </svg>
           </div>
-          <h3 class="text-2xl font-bold text-text mb-4">Dla Organizacji</h3>
-          <p class="text-gray-700 mb-6">Znajdź wykwalifikowanych trenerów AI i zapewnij wysokiej jakości programy szkoleniowe dla swojego zespołu.</p>
+          <h3 class="text-2xl font-bold text-text mb-4">{t.for_orgs_title}</h3>
+          <p class="text-gray-700 mb-6">{t.for_orgs_subtitle}</p>
           
           <ul class="space-y-3">
+            {t.for_orgs_benefits.map(benefit => (
             <li class="flex items-start space-x-3">
               <svg width="20" height="20" fill="none" stroke="#F4B740" viewBox="0 0 24 24" stroke-width="2" class="mt-0.5 flex-shrink-0">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
               </svg>
-              <span class="text-gray-700"><strong>Jasne oczekiwania:</strong> Wiedz, czego oczekiwać od certyfikowanych trenerów</span>
+              <span class="text-gray-700"><strong>{benefit.title}</strong> {benefit.text}</span>
             </li>
-            <li class="flex items-start space-x-3">
-              <svg width="20" height="20" fill="none" stroke="#F4B740" viewBox="0 0 24 24" stroke-width="2" class="mt-0.5 flex-shrink-0">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-              </svg>
-              <span class="text-gray-700"><strong>Listy kontrolne dobrych praktyk:</strong> Oceniaj jakość szkoleń obiektywnie</span>
-            </li>
-            <li class="flex items-start space-x-3">
-              <svg width="20" height="20" fill="none" stroke="#F4B740" viewBox="0 0 24 24" stroke-width="2" class="mt-0.5 flex-shrink-0">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-              </svg>
-              <span class="text-gray-700"><strong>Dostęp do kompetentnych trenerów:</strong> Nawiązuj kontakt ze sprawdzonymi profesjonalistami</span>
-            </li>
+            ))}
           </ul>
+        </div>
+      </div>
+
+      <div class="mt-20 text-center">
+        <h3 class="text-2xl lg:text-3xl font-bold text-text mb-10">{t.testimonials_title}</h3>
+        <div class="grid lg:grid-cols-2 gap-8 text-left">
+          {t.testimonials.map(testimonial => (
+            <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+              <p class="text-gray-700 italic mb-4">{testimonial.quote}</p>
+              <p class="font-semibold text-text">{testimonial.author}</p>
+              <p class="text-sm text-gray-500">{testimonial.role}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

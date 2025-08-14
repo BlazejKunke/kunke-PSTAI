@@ -1,0 +1,77 @@
+---
+export interface Props {
+  lang: 'en' | 'pl';
+}
+const { lang } = Astro.props;
+
+const content = {
+  pl: {
+    title: 'Aktualności i Artykuły',
+    description: 'Najnowsze wiadomości ze świata AI i artykuły od naszych ekspertów.',
+    read_more_button: 'Czytaj więcej',
+    posts: [
+      {
+        title: 'Jak AI zmienia branżę marketingową?',
+        date: '20 października 2025',
+        excerpt: 'Sztuczna inteligencja rewolucjonizuje marketing, od personalizacji treści po automatyzację kampanii. W tym artykule przyglądamy się najważniejszym trendom.',
+        link: '#',
+        category: 'Trendy',
+      },
+      {
+        title: '5 wskazówek dla początkujących trenerów AI',
+        date: '10 października 2025',
+        excerpt: 'Zaczynasz swoją przygodę ze szkoleniami AI? Nasz ekspert dzieli się kluczowymi poradami, które pomogą Ci odnieść sukces.',
+        link: '#',
+        category: 'Poradnik',
+      },
+    ]
+  },
+  en: {
+    title: 'News & Articles',
+    description: 'The latest news from the world of AI and articles from our experts.',
+    read_more_button: 'Read More',
+    posts: [
+      {
+        title: 'How is AI changing the marketing industry?',
+        date: 'October 20, 2025',
+        excerpt: 'Artificial intelligence is revolutionizing marketing, from content personalization to campaign automation. In this article, we look at the most important trends.',
+        link: '#',
+        category: 'Trends',
+      },
+      {
+        title: '5 tips for beginner AI trainers',
+        date: 'October 10, 2025',
+        excerpt: 'Starting your adventure with AI training? Our expert shares key tips to help you succeed.',
+        link: '#',
+        category: 'Guide',
+      },
+    ]
+  }
+};
+
+const t = content[lang];
+---
+
+<section id="blog" class="py-20 lg:py-24 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl lg:text-4xl font-bold text-text mb-6">{t.title}</h2>
+      <p class="text-lg lg:text-xl text-gray-700 mb-12 leading-relaxed">
+        {t.description}
+      </p>
+    </div>
+    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+      {t.posts.map(post => (
+        <div class="bg-gray-50 rounded-xl p-8 transition-shadow duration-300 hover:shadow-lg">
+            <p class="text-sm font-semibold text-primary mb-2">{post.category}</p>
+            <h3 class="text-2xl font-bold text-text mb-3">{post.title}</h3>
+            <p class="text-gray-500 text-sm mb-4">{post.date}</p>
+            <p class="text-gray-700 mb-6">{post.excerpt}</p>
+            <a href={post.link} class="font-semibold text-primary hover:underline">
+                {t.read_more_button} &rarr;
+            </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

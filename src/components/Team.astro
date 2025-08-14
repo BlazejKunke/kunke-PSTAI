@@ -1,0 +1,52 @@
+---
+export interface Props {
+  lang: 'en' | 'pl';
+}
+const { lang } = Astro.props;
+
+const content = {
+  pl: {
+    title: 'Nasz Zespół',
+    description: 'Poznaj osoby, które stoją za Polskim Stowarzyszeniem Trenerów Sztucznej Inteligencji.',
+    team: [
+      { name: 'Jan Kowalski', role: 'Prezes Zarządu', bio: 'Ekspert w dziedzinie uczenia maszynowego z 15-letnim doświadczeniem w branży. Pasjonat etyki w AI.' },
+      { name: 'Anna Nowak', role: 'Wiceprezes ds. Edukacji', bio: 'Autorka wielu publikacji na temat zastosowania AI w edukacji. Odpowiada za programy certyfikacyjne PSTAI.' },
+      { name: 'Piotr Wiśniewski', role: 'Członek Zarządu', bio: 'Doświadczony menedżer i strateg, który wspiera rozwój stowarzyszenia i relacje z partnerami.' },
+    ]
+  },
+  en: {
+    title: 'Our Team',
+    description: 'Meet the people behind the Polish Association of Artificial Intelligence Trainers.',
+    team: [
+      { name: 'Jan Kowalski', role: 'President of the Board', bio: 'An expert in machine learning with 15 years of industry experience. Passionate about ethics in AI.' },
+      { name: 'Anna Nowak', role: 'VP of Education', bio: 'Author of many publications on the use of AI in education. Responsible for PSTAI certification programs.' },
+      { name: 'Piotr Wiśniewski', role: 'Board Member', bio: 'An experienced manager and strategist who supports the association\'s development and partner relations.' },
+    ]
+  }
+};
+
+const t = content[lang];
+---
+
+<section id="team" class="py-20 lg:py-24 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl lg:text-4xl font-bold text-text mb-6">{t.title}</h2>
+      <p class="text-lg lg:text-xl text-gray-700 mb-12 leading-relaxed">
+        {t.description}
+      </p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-16">
+      {t.team.map(member => (
+        <div class="text-center">
+          <div class="w-32 h-32 rounded-full mx-auto mb-6 bg-gray-200 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 text-gray-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          </div>
+          <h3 class="text-xl font-semibold text-text mb-1">{member.name}</h3>
+          <p class="text-primary font-medium mb-3">{member.role}</p>
+          <p class="text-gray-600 text-sm">{member.bio}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

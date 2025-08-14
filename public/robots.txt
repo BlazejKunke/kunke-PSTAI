@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pstai.org/sitemap-index.xml
+Sitemap: https://pstai.org/sitemap.xml

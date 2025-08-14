@@ -1,4 +1,21 @@
 ---
+export interface Props {
+  lang: 'en' | 'pl';
+}
+const { lang } = Astro.props;
+
+const content = {
+  pl: {
+    privacy: 'Prywatność',
+    cookies: 'Cookies',
+  },
+  en: {
+    privacy: 'Privacy',
+    cookies: 'Cookies',
+  }
+};
+
+const t = content[lang];
 ---
 
 <footer class="bg-gray-50 border-t border-gray-200 py-12">
@@ -15,16 +32,16 @@
       <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-600">
         <span>© {new Date().getFullYear()} PSTAI</span>
         <a 
-          href="/privacy" 
+          href={lang === 'pl' ? '/pl/privacy' : '/en/privacy'}
           class="hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm"
         >
-          Prywatność
+          {t.privacy}
         </a>
         <a 
-          href="/cookies" 
+          href={lang === 'pl' ? '/pl/cookies' : '/en/cookies'}
           class="hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-sm"
         >
-          Cookies
+          {t.cookies}
         </a>
       </div>
     </div>
